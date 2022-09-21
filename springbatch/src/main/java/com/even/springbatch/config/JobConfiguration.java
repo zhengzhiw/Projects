@@ -27,23 +27,23 @@ public class JobConfiguration {
         return jobBuilderFactory.get("helloWord").start(step1()).next(step2()).build();
     }
 
-    private Step step2 () {
-        return stepBuilderFactory.get("step2").tasklet(new Tasklet() {
-            @Override
-            public RepeatStatus execute (StepContribution stepContribution, ChunkContext chunkContext)
-                    throws Exception {
-                System.out.println("World");
-                return RepeatStatus.FINISHED;
-            }
-        }).build();
-    }
-
     private Step step1 () {
         return stepBuilderFactory.get("step1").tasklet(new Tasklet() {
             @Override
             public RepeatStatus execute (StepContribution stepContribution, ChunkContext chunkContext)
                     throws Exception {
                 System.out.println("Hello ");
+                return RepeatStatus.FINISHED;
+            }
+        }).build();
+    }
+
+    private Step step2 () {
+        return stepBuilderFactory.get("step2").tasklet(new Tasklet() {
+            @Override
+            public RepeatStatus execute (StepContribution stepContribution, ChunkContext chunkContext)
+                    throws Exception {
+                System.out.println("World");
                 return RepeatStatus.FINISHED;
             }
         }).build();
