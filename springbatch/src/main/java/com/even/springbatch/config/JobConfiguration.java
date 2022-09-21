@@ -24,10 +24,11 @@ public class JobConfiguration {
 
     @Bean
     public Job helloWorld () {
-        return jobBuilderFactory.get("helloWord").start(step1()).next(step2()).build();
+        return jobBuilderFactory.get("helloWord").start(JobStep1()).next(JobStep2()).build();
     }
 
-    private Step step1 () {
+    @Bean
+    public Step JobStep1 () {
         return stepBuilderFactory.get("step1").tasklet(new Tasklet() {
             @Override
             public RepeatStatus execute (StepContribution stepContribution, ChunkContext chunkContext)
@@ -38,7 +39,8 @@ public class JobConfiguration {
         }).build();
     }
 
-    private Step step2 () {
+    @Bean
+    public Step JobStep2 () {
         return stepBuilderFactory.get("step2").tasklet(new Tasklet() {
             @Override
             public RepeatStatus execute (StepContribution stepContribution, ChunkContext chunkContext)
